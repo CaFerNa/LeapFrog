@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Plantilla Wasm</title>
+    <!-- 1. Cargamos el Runtime generado por TeaVM -->
+    <script src="wasm/template.wasm-runtime.js"></script>
+    <!-- 2. Cargamos nuestra nueva API bonita -->
+    <script src="wasm/template-api.js"></script>
+</head>
+<body>
+
+<h1>Ejemplo Limpio de Wasm</h1>
+
+<div style="margin-bottom: 20px;">
+    <input type="text" id="inputNombre" placeholder="Tu nombre aquí">
+    <button id="btn-action">Obtener HTML de Java</button>
+</div>
+
+<div id="display" style="border: 1px solid #ccc; padding: 20px; min-height: 50px;">
+    <em>Esperando carga...</em>
+</div>
+
+<script>
+    // 1. Iniciamos la API al cargar la página
+    window.onload = async () => {
+        await WasmAPI.init('wasm/template.wasm');
+        document.getElementById('display').innerText = "Sistema listo. Escribe algo.";
+    };
+
+    // 2. Usamos la función limpia en el evento
+    document.getElementById('btn-action').onclick = function () {
+        const nombre = document.getElementById('inputNombre').value;
+
+        // ¡MIRA QUÉ LIMPIO! Una sola línea, sin conversiones raras aquí.
+        const htmlDesdeJava = WasmAPI.saludar(nombre);
+
+        document.getElementById('display').innerHTML = htmlDesdeJava;
+    }
+</script>
+
+</body>
+</html>
