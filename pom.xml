@@ -6,10 +6,10 @@
     <groupId>com.cam</groupId>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wasm-plantilla</artifactId>
+    <artifactId>leapfrog</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Plantilla para Webassembly</name>
+    <name>Leap Frog</name>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -62,14 +62,14 @@
                 <version>${teavm.version}</version>
                 <executions>
                     <execution>
-                        <id>WasmPlantilla</id>
+                        <id>leapfrog</id>
                         <goals>
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.cam.Template</mainClass>
+                            <mainClass>com.cam.Leapfrog</mainClass>
                             <targetDirectory>${project.build.directory}/webapp/wasm</targetDirectory>
-                            <targetFileName>template.wasm</targetFileName>
+                            <targetFileName>leapfrog.wasm</targetFileName>
                             <targetType>WEBASSEMBLY</targetType>
                             <optimizationLevel>FULL</optimizationLevel>
                         </configuration>

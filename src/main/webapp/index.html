@@ -2,41 +2,42 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Plantilla Wasm</title>
-    <!-- 1. Cargamos el Runtime generado por TeaVM -->
-    <script src="wasm/template.wasm-runtime.js"></script>
-    <!-- 2. Cargamos nuestra nueva API bonita -->
-    <script src="wasm/template-api.js"></script>
+    <title>Leap Frog</title>
+    <script src="wasm/leapfrog.wasm-runtime.js"></script>
+    <script src="wasm/leapfrog-api.js"></script>
 </head>
 <body>
-
-<h1>Ejemplo Limpio de Wasm</h1>
-
-<div style="margin-bottom: 20px;">
-    <input type="text" id="inputNombre" placeholder="Tu nombre aquí">
-    <button id="btn-action">Obtener HTML de Java</button>
-</div>
-
-<div id="display" style="border: 1px solid #ccc; padding: 20px; min-height: 50px;">
+<h3 style="text-align: center; width: 80%; margin: 20px 0;">LEAPFROG</h3>
+<div id="display" style="border: 1px solid #ccc; padding: 20px; width: 80%; box-sizing: border-box;">
     <em>Esperando carga...</em>
+</div>
+<div style="width: 80%; padding: 0 20px; box-sizing: border-box; margin-top: 10px;">
+    <div style="display: flex; justify-content: space-between; width: 100%; text-align: center; font-size: larger; font-weight: bold;">
+        <span style="width: 10%;">1</span>
+        <span style="width: 10%;">2</span>
+        <span style="width: 10%;">3</span>
+        <span style="width: 10%;">4</span>
+        <span style="width: 10%;">5</span>
+        <span style="width: 10%;">6</span>
+        <span style="width: 10%;">7</span>
+        <span style="width: 10%;">8</span>
+        <span style="width: 10%;">9</span>
+    </div>
 </div>
 
 <script>
     // 1. Iniciamos la API al cargar la página
     window.onload = async () => {
-        await WasmAPI.init('wasm/template.wasm');
-        document.getElementById('display').innerText = "Sistema listo. Escribe algo.";
+        await WasmAPI.init('wasm/leapfrog.wasm');
+        const htmlDesdeJava = WasmAPI.renderHtml("Tablero");
+        document.getElementById('display').innerHTML = htmlDesdeJava;
     };
 
-    // 2. Usamos la función limpia en el evento
-    document.getElementById('btn-action').onclick = function () {
-        const nombre = document.getElementById('inputNombre').value;
-
-        // ¡MIRA QUÉ LIMPIO! Una sola línea, sin conversiones raras aquí.
-        const htmlDesdeJava = WasmAPI.saludar(nombre);
-
-        document.getElementById('display').innerHTML = htmlDesdeJava;
-    }
+    // document.getElementById('btn-action').onclick = function () {
+    //     const nombre = document.getElementById('inputNombre').value;
+    //     const htmlDesdeJava = WasmAPI.renderHtml(nombre);
+    //     document.getElementById('display').innerHTML = htmlDesdeJava;
+    // }
 </script>
 
 </body>
