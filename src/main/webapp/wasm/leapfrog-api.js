@@ -4,7 +4,7 @@ const WasmAPI = {
     teavm: null,
 
     // 1. INICIALIZACIÓN
-    init: async function(wasmPath) {
+    init: async function (wasmPath) {
         console.log("Cargando Wasm...");
         this.teavm = await TeaVM.wasm.load(wasmPath);
 
@@ -17,11 +17,17 @@ const WasmAPI = {
 
     // 2. TUS FUNCIONES PÚBLICAS
 
-    renderHtml: function(nombre) {
+    renderHtml: function (nombre) {
         if (!this.teavm) return "Error: Wasm no cargado";
         const ptrEntrada = this._jsToWasm(nombre);
         const ptrSalida = this.teavm.instance.exports.renderHtml(ptrEntrada);
         return this._wasmToJs(ptrSalida);
+    },
+
+    runFunction: function (fn) {
+        if (!this.teavm) return "Error: Wasm no cargado";
+        const result = this.teavm.instance.exports.runFunction();
+        return result;
     },
 
     // 3. HERRAMIENTAS INTERNAS (PRIVADAS)

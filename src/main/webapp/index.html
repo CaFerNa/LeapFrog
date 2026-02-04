@@ -29,13 +29,18 @@
     // 1. Iniciamos la API al cargar la página
     window.onload = async () => {
         await WasmAPI.init('wasm/leapfrog.wasm');
-        const htmlDesdeJava = WasmAPI.renderHtml("Tablero");
+
+        const htmlDesdeJava = WasmAPI.runFunction();
+
         document.getElementById('display').innerHTML = htmlDesdeJava;
+
+        //const htmlDesdeJava = WasmAPI.renderHtml("TableroPiezas");
+        // document.getElementById('display').innerHTML = htmlDesdeJava;
+
     };
 
-    // document.getElementById('btn-action').onclick = function () {
-    //     const nombre = document.getElementById('inputNombre').value;
-    //     const htmlDesdeJava = WasmAPI.renderHtml(nombre);
+    // document.getElementById('b1').onclick = function () {
+    //     const htmlDesdeJava = WasmAPI.renderHtml(id);
     //     document.getElementById('display').innerHTML = htmlDesdeJava;
     // }
 </script>
