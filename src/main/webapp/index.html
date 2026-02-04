@@ -8,10 +8,12 @@
 </head>
 <body>
 <h3 style="text-align: center; width: 80%; margin: 20px 0;">LEAPFROG</h3>
-<div id="display" style="border: 1px solid #ccc; padding: 20px; width: 80%; box-sizing: border-box;">
+<!--<div id="display" style="border: 1px solid #ccc; padding: 20px; width: 80%; box-sizing: border-box;">-->
+<div id="display" style="padding: 20px; width: 80%; box-sizing: border-box;">
+
     <!--    <em>Esperando carga...</em>-->
 </div>
-<div style="width: 80%; padding: 0 20px; box-sizing: border-box; margin-top: 10px;">
+<div style="padding: 0 20px; width: 80%; box-sizing: border-box; margin-top: 10px;">
     <div style="display: flex; justify-content: space-between; width: 100%; text-align: center; font-size: larger; font-weight: bold;">
         <span style="width: 10%;">1</span>
         <span style="width: 10%;">2</span>
@@ -24,6 +26,7 @@
         <span style="width: 10%;">9</span>
     </div>
 </div>
+<p id="msg"></p>
 
 <script>
     // 1. Iniciamos la API al cargar la página
@@ -35,7 +38,9 @@
 
         document.getElementById('display').onclick = function (event) {
             if (event.target.type === 'button') {
-                const htmlDesdeJava = WasmAPI.runFunction(OPS.MOVER);
+                var id = event.target.id;
+                var numero = parseInt(id);
+                const htmlDesdeJava = WasmAPI.runFunction(OPS.MOVER, numero);
                 document.getElementById('display').innerHTML = htmlDesdeJava;
             }
         }
