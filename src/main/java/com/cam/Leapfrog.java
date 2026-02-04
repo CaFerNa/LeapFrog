@@ -6,10 +6,14 @@ import static com.cam.TableroPiezas.generarTablero;
 
 public class Leapfrog {
 
-    static String tableroInicio = "XXXX OOOO";
-    static String tablero;
-    static int contador;
-    static boolean playGame;
+    public static String tableroInicio = "XXXX OOOO";
+    public static String tablero;
+    public static int contador;
+    public static boolean playGame;
+    // OP_CODES
+    public static final int OP_GENERAR_TABLERO = 1;
+    public static final int OP_MOVER_PIEZA = 2;
+    public static final int OP_REINICIAR = 3;
 
     public static void main(String[] args) {
         inicializar();
@@ -22,8 +26,13 @@ public class Leapfrog {
     }
 
     @Export(name = "runFunction")
-    public static String runFunction() {
-            return TableroPiezas.generarTablero();
+    public static String runFunction(int OP_CODE) {
+//        if (cod == OP_GENERAR_TABLERO) return TableroPiezas.generarTablero();
+//        return "<span style='color:red'>Código no válido</span>";
+        switch (OP_CODE){
+            case OP_GENERAR_TABLERO: return TableroPiezas.generarTablero();
+            default: return "<span style='color:red'>OP_CODE no válido</span>";
+        }
     }
 
     public static void seguirJugando() {

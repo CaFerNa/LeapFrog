@@ -29,12 +29,9 @@
     // 1. Iniciamos la API al cargar la página
     window.onload = async () => {
         await WasmAPI.init('wasm/leapfrog.wasm');
-
-        const htmlDesdeJava = WasmAPI.runFunction();
-
+        const htmlDesdeJava = WasmAPI.runFunction(OPS.GENERAR);
         document.getElementById('display').innerHTML = htmlDesdeJava;
-
-        //const htmlDesdeJava = WasmAPI.renderHtml("TableroPiezas");
+        // const htmlDesdeJava = WasmAPI.renderHtml("TableroPiezas");
         // document.getElementById('display').innerHTML = htmlDesdeJava;
 
     };

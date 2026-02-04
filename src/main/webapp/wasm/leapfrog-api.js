@@ -1,5 +1,11 @@
 // wasm-api.js
 
+const OPS = {
+    GENERAR: 1,
+    MOVER: 2,
+    REINICIAR: 3
+};
+
 const WasmAPI = {
     teavm: null,
 
@@ -17,17 +23,17 @@ const WasmAPI = {
 
     // 2. TUS FUNCIONES PÚBLICAS
 
-    renderHtml: function (nombre) {
+    renderHtml: function (id) {
         if (!this.teavm) return "Error: Wasm no cargado";
-        const ptrEntrada = this._jsToWasm(nombre);
+        const ptrEntrada = this._jsToWasm(id);
         const ptrSalida = this.teavm.instance.exports.renderHtml(ptrEntrada);
         return this._wasmToJs(ptrSalida);
     },
 
-    runFunction: function (fn) {
+    runFunction: function (cod) {
         if (!this.teavm) return "Error: Wasm no cargado";
-        const result = this.teavm.instance.exports.runFunction();
-        return result;
+        const ptrSalida = this.teavm.instance.exports.runFunction(cod);
+        return this._wasmToJs(ptrSalida);
     },
 
     // 3. HERRAMIENTAS INTERNAS (PRIVADAS)
