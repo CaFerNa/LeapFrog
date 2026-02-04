@@ -17,18 +17,15 @@ public class Leapfrog {
 
     public static void main(String[] args) {
         inicializar();
-        renderHtml("TableroPiezas");
     }
 
     @Export(name = "renderHtml")
-    public static String renderHtml(String id) {
-        return "<span style='color:red'>" + id + "</span>";
+    public static String renderHtml(String texto) {
+        return "<span style='color:red'>" + texto + "</span>";
     }
 
     @Export(name = "runFunction")
     public static String runFunction(int OP_CODE) {
-//        if (cod == OP_GENERAR_TABLERO) return TableroPiezas.generarTablero();
-//        return "<span style='color:red'>Código no válido</span>";
         switch (OP_CODE){
             case OP_GENERAR_TABLERO: return TableroPiezas.generarTablero();
             default: return "<span style='color:red'>OP_CODE no válido</span>";
