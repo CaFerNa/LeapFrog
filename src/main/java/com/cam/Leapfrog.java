@@ -2,12 +2,12 @@ package com.cam;
 
 import org.teavm.interop.Export;
 
-import static com.cam.TableroPiezas.generarTablero;
+import static com.cam.TableroPiezas.renderTablero;
 
 public class Leapfrog {
 
-    public static String tableroInicio = "XXXX OOOO";
-    public static String tablero;
+    public static String[] Tablero_Inicio = {"X","X","X","X"," ","O","O","O","O"};
+    public static String[] tablero = {"O","O","O","O"," ","X","X","X","X"};
     public static int contador;
     public static boolean playGame;
     // OP_CODES
@@ -25,33 +25,34 @@ public class Leapfrog {
     }
 
     @Export(name = "runFunction")
-    public static String runFunction(int OP_CODE) {
+    public static String runFunction(int OP_CODE, String id) {
         switch (OP_CODE){
-            case OP_GENERAR_TABLERO: return TableroPiezas.generarTablero();
+            case OP_GENERAR_TABLERO: return TableroPiezas.renderTablero(Tablero_Inicio);
+            case OP_MOVER_PIEZA:
+                comprobarTablero();
+                return TableroPiezas.renderTablero(tablero);
             default: return "<span style='color:red'>OP_CODE no válido</span>";
         }
     }
 
-    public static void seguirJugando() {
-        if ((tablero.substring(0, 3).equals(tableroInicio.substring(4, 8)) && tablero.substring(4, 8).equals(tableroInicio.substring(0, 3)))) {
-            System.out.println("End");
-            playGame = true;
-        } else {
-            System.out.println("Juego en curso");
+    public static void comprobarTablero() {
+        int correctos = 0;
+        for (int i = 0; i < Tablero_Inicio.length; i++) {
+            if(tablero[i].equals(Tablero_Inicio[i])) correctos++;
         }
+        if (correctos == Tablero_Inicio.length) {
+            renderHtml("<span style='color:red'>¡Has Ganado!</span>");
+            System.out.println("Has Ganado!");
+        } else {
+            System.out.println("No has Ganado. Te faltan " + ((Tablero_Inicio.length)-correctos) + " para ganar.");
+        }
+
     }
 
     public static void inicializar() {
-        tablero = tableroInicio;
+        // tablero = Tablero_Inicio;
         contador = 0;
         playGame = true;
         //System.out.println("Juego Inicializado");
-    }
-
-    public static void game() {
-        System.out.println("Juego comenzado");
-        while (playGame) {
-            seguirJugando();
-        }
     }
 }

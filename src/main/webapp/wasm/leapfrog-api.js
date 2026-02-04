@@ -30,9 +30,9 @@ const WasmAPI = {
         return this._wasmToJs(ptrSalida);
     },
 
-    runFunction: function (cod) {
+    runFunction: function (cod, id) {
         if (!this.teavm) return "Error: Wasm no cargado";
-        const ptrSalida = this.teavm.instance.exports.runFunction(cod);
+        const ptrSalida = this.teavm.instance.exports.runFunction(cod, id);
         return this._wasmToJs(ptrSalida);
     },
 
