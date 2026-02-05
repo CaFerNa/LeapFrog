@@ -13,7 +13,6 @@ const WasmAPI = {
     init: async function (wasmPath) {
         console.log("Cargando Wasm...");
         this.teavm = await TeaVM.wasm.load(wasmPath);
-
         // Ejecutar el main de Java para inicializar estáticos
         if (this.teavm.main) {
             await this.teavm.main([]);

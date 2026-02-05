@@ -36,6 +36,7 @@ public class Leapfrog {
 
     public static void inicializar() {
         // tablero = Tablero_Inicio;
+        renderHtml(TableroPiezas.renderTablero(Tablero_Inicio, 10));
         contador = 0;
         playGame = true;
         for (int i = 0; i < firstMove.length; i++)  firstMove[i] = 0;
