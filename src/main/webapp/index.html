@@ -10,8 +10,7 @@
 <h3 style="text-align: center; width: 80%; margin: 20px 0;">LEAPFROG</h3>
 <!--<div id="display" style="border: 1px solid #ccc; padding: 20px; width: 80%; box-sizing: border-box;">-->
 <div id="display" style="padding: 20px; width: 80%; box-sizing: border-box;">
-
-    <!--    <em>Esperando carga...</em>-->
+        <em>Esperando carga...</em>
 </div>
 <div style="padding: 0 20px; width: 80%; box-sizing: border-box; margin-top: 10px;">
     <div style="display: flex; justify-content: space-between; width: 100%; text-align: center; font-size: larger; font-weight: bold;">
@@ -32,24 +31,15 @@
     // 1. Iniciamos la API al cargar la página
     window.onload = async () => {
         await WasmAPI.init('wasm/leapfrog.wasm');
-        // document.getElementById('display').innerHTML = WasmAPI.renderHtml('Pulse para nueva partida');
-        //const htmlDesdeJava = WasmAPI.runFunction(OPS.GENERAR_TABLERO,"");
-        //document.getElementById('display').innerHTML = htmlDesdeJava;
-
+        document.getElementById('display').innerHTML = WasmAPI.runFunction (OPS.GENERAR_TABLERO, 10);
         document.getElementById('display').onclick = function (event) {
             if (event.target.type === 'button') {
-                var id = event.target.id;
-                var numero = parseInt(id);
-                const htmlDesdeJava = WasmAPI.runFunction(OPS.MOVER, numero);
-                document.getElementById('display').innerHTML = htmlDesdeJava;
+                let id = event.target.id;
+                let numero = parseInt(id);
+                document.getElementById('display').innerHTML = WasmAPI.runFunction(OPS.MOVER, numero);
             }
         }
     }
-
-    // document.getElementById('display').onclick = function () {
-    //     const htmlDesdeJava = WasmAPI.runFunction(OPS.GENERAR_TABLERO);
-    //     document.getElementById('display').innerHTML = htmlDesdeJava;
-    // }
 
 </script>
 

@@ -17,7 +17,7 @@ public class TableroPiezas {
             } else if (pieza.equals("X")) {
                 if (i == piezaPulsada) {color = "#898989";} else {color = "#ff0000";}
                 sb.append("<button type='button' id='" + i + "'style='width: 10%; aspect-ratio: 2/1; background-color: "+color+"; color: white; border: none; border-radius: 4px; cursor: pointer; box-sizing: border-box; font-size: larger;'>X</button>");
-            } else {
+            } else if (pieza.equals(" ")){
                 color = "white";
                 sb.append("<button type='button' id='" + i + "'style='width: 10%; aspect-ratio: 2/1; background-color: " + color + "; color: white; border: 1px solid #eee; border-radius: 4px; cursor: pointer; box-sizing: border-box;'>&nbsp;</button>");
             }
