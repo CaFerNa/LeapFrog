@@ -14,21 +14,20 @@ public class Leapfrog {
     public static final int COD_NOPIEZA = 10;
 
     // OP_CODES
-    public static final int OP_GENERAR_TABLERO = 1;
+    public static final int OP_GENERAR_PAGINA = 1;
     public static final int OP_MOVER_PIEZA = 2;
-    public static final int OP_REINICIAR = 3;
 
     public static void main(String[] args) {
         inicializar();
     }
 
     @Export(name = "renderHtml")
-    public static String renderHtml(String texto) {return texto;}
+    public static String renderHtml(String texto, String id) {return texto;}
 
     @Export(name = "runFunction")
     public static String runFunction(int OP_CODE, int id) {
         switch (OP_CODE){
-            case OP_GENERAR_TABLERO: return TableroPiezas.renderTablero(tablero, COD_NOPIEZA);
+            case OP_GENERAR_PAGINA: return TableroPiezas.renderPage(tablero);
             case OP_MOVER_PIEZA: return gameLoop(id);
             default: return "<span style='color:red'>OP_CODE no válido</span>";
         }
@@ -36,7 +35,7 @@ public class Leapfrog {
 
     public static void inicializar() {
         for (int i = 0; i < Tablero_Inicio.length; i++) tablero[i] = Tablero_Inicio[i];
-        runFunction(OP_GENERAR_TABLERO, COD_NOPIEZA);
+        runFunction(OP_GENERAR_PAGINA, COD_NOPIEZA);
         contador = 0;
         playGame = true;
         firstMove = true;
@@ -49,7 +48,7 @@ public class Leapfrog {
             if(tablero[i].equals(Tablero_Final[i])) correctos++;
         }
         if (correctos == Tablero_Final.length) {
-            renderHtml("<span style='color:red'>¡Has Ganado!</span>");
+            renderHtml("<span style='color:red'>¡Has Ganado!</span>", "");
             System.out.println("Has Ganado!");
             playGame = false;
         } else {

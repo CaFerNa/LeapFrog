@@ -25,4 +25,45 @@ public class TableroPiezas {
         sb.append("</div>");
         return sb.toString();
     }
+
+    public static String renderFooter(String[] args){
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div style='padding: 0 20px; width: 100%; box-sizing: border-box; margin-top: 10px'>");
+        sb.append("<div style='display: flex; justify-content: space-between; width: 100%; text-align: center; font-size: larger; font-weight: bold;'>");
+        sb.append("<span style='width: 10%;'>1</span>");
+        sb.append("<span style='width: 10%;'>2</span>");
+        sb.append("<span style='width: 10%;'>3</span>");
+        sb.append("<span style='width: 10%;'>4</span>");
+        sb.append("<span style='width: 10%;'>5</span>");
+        sb.append("<span style='width: 10%;'>6</span>");
+        sb.append("<span style='width: 10%;'>7</span>");
+        sb.append("<span style='width: 10%;'>8</span>");
+        sb.append("<span style='width: 10%;'>9</span>");
+        sb.append("</div>");
+        sb.append("</div>");
+        sb.append("<p id='msg'>&nbsp;</p>");
+        sb.append("<button id='btn' style='display: block; margin: 0 auto;'>Pulsa para empezar</button>");
+        return sb.toString();
+    }
+
+    public static  String renderPage(String[] args) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(renderTablero(args,10));
+        sb.append("<div style='padding: 0 20px; width: 100%; box-sizing: border-box; margin-top: 10px'>");
+        sb.append("<div style='display: flex; justify-content: space-between; width: 100%; text-align: center; font-size: larger; font-weight: bold;'>");
+        sb.append("<span style='width: 10%;'>1</span>");
+        sb.append("<span style='width: 10%;'>2</span>");
+        sb.append("<span style='width: 10%;'>3</span>");
+        sb.append("<span style='width: 10%;'>4</span>");
+        sb.append("<span style='width: 10%;'>5</span>");
+        sb.append("<span style='width: 10%;'>6</span>");
+        sb.append("<span style='width: 10%;'>7</span>");
+        sb.append("<span style='width: 10%;'>8</span>");
+        sb.append("<span style='width: 10%;'>9</span>");
+        sb.append("</div>");
+        sb.append("</div>");
+        sb.append("<p id='msg'>&nbsp;</p>");
+        sb.append("<button id='btn' style='display: block; margin: 0 auto;'>Pulsa para empezar</button>");
+        return sb.toString();
+    }
 }
