@@ -1,9 +1,10 @@
 // wasm-api.js
 
 const OPS = {
-    GENERAR_PAGINA: 1,
-    MOVER: 2,
-    REINICIAR: 3
+    GENERAR_TABLERO: 1,
+    GENERAR_FOOTER :2,
+    MOVER: 3,
+    REINICIAR: 10
 };
 
 const WasmAPI = {
@@ -21,13 +22,6 @@ const WasmAPI = {
     },
 
     // 2. TUS FUNCIONES PÚBLICAS
-
-    renderHtml: function (texto, id) {
-        if (!this.teavm) return "Error: Wasm no cargado";
-        const ptrEntrada = this._jsToWasm(texto);
-        const ptrSalida = this.teavm.instance.exports.renderHtml(ptrEntrada);
-        return this._wasmToJs(ptrSalida);
-    },
 
     runFunction: function (cod, id) {
         if (!this.teavm) return "Error: Wasm no cargado";

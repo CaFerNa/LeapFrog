@@ -7,39 +7,40 @@ public class Leapfrog {
     public static final String[] Tablero_Inicio = {"X","X","X","X"," ","O","O","O","O"};
     public static final String[] Tablero_Final = {"O","O","O","O"," ","X","X","X","X"};
     public static String[] tablero = {"","","","","","","","",""};
-    public static int contador;
+    // public static String[] mensajes = {"&nbsp;","Pulse para Comenzar", "Pulse para reiniciar", "Movimento no permitido", ""};
+    public static String[] mensajes = {"","",""};
+    public static int moves;
     public static boolean playGame;
     public static boolean firstMove;
     public static int pos_origen;
     public static final int COD_NOPIEZA = 10;
 
     // OP_CODES
-    public static final int OP_GENERAR_PAGINA = 1;
-    public static final int OP_MOVER_PIEZA = 2;
+    public static final int OP_GENERAR_TABLERO = 1;
+    public static final int OP_GENERAR_FOOTER = 2;
+    public static final int OP_MOVER_PIEZA = 3;
+    public static final int OP_REINICIAR = 10;
 
-    public static void main(String[] args) {
-        inicializar();
-    }
-
-    @Export(name = "renderHtml")
-    public static String renderHtml(String texto, String id) {return texto;}
+    public static void main(String[] args) {}
 
     @Export(name = "runFunction")
-    public static String runFunction(int OP_CODE, int id) {
-        switch (OP_CODE){
-            case OP_GENERAR_PAGINA: return TableroPiezas.renderPage(tablero);
-            case OP_MOVER_PIEZA: return gameLoop(id);
+    public static String runFunction(int id) {
+        switch (id){
+            case OP_REINICIAR: return inicializar();
+            case 0: case 1 : case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9: return gameLoop(id);
             default: return "<span style='color:red'>OP_CODE no válido</span>";
         }
     }
 
-    public static void inicializar() {
+    public static String inicializar() {
         for (int i = 0; i < Tablero_Inicio.length; i++) tablero[i] = Tablero_Inicio[i];
-        runFunction(OP_GENERAR_PAGINA, COD_NOPIEZA);
-        contador = 0;
+        moves = 0;
         playGame = true;
         firstMove = true;
-        System.out.println("Juego Inicializado");
+        mensajes[0] = "&nbsp;";
+        mensajes[1] = "Pulse para reiniciar";
+        System.out.println("[DEBUG] Juego Inicializado");
+        return TableroPiezas.renderPage(tablero, COD_NOPIEZA, mensajes);
     }
 
     public static void comprobarTablero() {
@@ -48,11 +49,11 @@ public class Leapfrog {
             if(tablero[i].equals(Tablero_Final[i])) correctos++;
         }
         if (correctos == Tablero_Final.length) {
-            renderHtml("<span style='color:red'>¡Has Ganado!</span>", "");
-            System.out.println("Has Ganado!");
+            mensajes[0] = "¡Has Ganado! en " + moves + " movimientos.";
+            System.out.println("[DEBUG] Has Ganado!");
             playGame = false;
         } else {
-            System.out.println(" No has Ganado. Te faltan " + ((Tablero_Final.length)-correctos) + " para ganar.");
+            System.out.println("[DEBUG] No has Ganado. Te faltan " + ((Tablero_Final.length)-correctos) + " para ganar.");
             playGame = true;
         }
     }
@@ -61,31 +62,34 @@ public class Leapfrog {
         if (firstMove) {
             firstMove = false;
             pos_origen = cod_pieza;
-            return TableroPiezas.renderTablero(tablero, cod_pieza);
+            mensajes[0] = "&nbsp;";
+            return TableroPiezas.renderPage(tablero, cod_pieza, mensajes);
         } else{
             firstMove = true;
-            tablero[cod_pieza] = tablero[pos_origen];
             //comprobamos
-            System.out.println("[DEBUG] " + Math.abs(cod_pieza - pos_origen));
-            if ((Math.abs(cod_pieza - pos_origen) > 2) && (!tablero[cod_pieza].equals(" "))) {
+            if ((Math.abs(cod_pieza - pos_origen) > 2) || (!tablero[cod_pieza].equals(" "))) {
                 System.out.println("[DEBUG] No permitido");
+                mensajes[0] = "Movimiento no permitido";
+                return TableroPiezas.renderPage(tablero, COD_NOPIEZA, mensajes);
+            } else {
+                tablero[cod_pieza] = tablero[pos_origen];
+                tablero[pos_origen] = " ";
+                System.out.print("[DEBUG] ");
+                for (int i = 0; i < tablero.length; i++) System.out.print(tablero[i]);
+                System.out.print(" \n");
+                comprobarTablero();
+                moves++;
+                return TableroPiezas.renderPage(tablero, COD_NOPIEZA, mensajes);
             }
-            tablero[pos_origen] = " ";
-            for (int i = 0; i < tablero.length; i++) System.out.print(tablero[i]);
-            comprobarTablero();
-            return TableroPiezas.renderTablero(tablero, COD_NOPIEZA);
+
         }
-    }
-
-    public static void endGame() {
-
     }
 
     public static String gameLoop(int id) {
         if (playGame) {
             return moverPiezas(id);
         } else {
-            return TableroPiezas.renderTablero(tablero, 10);
+            return TableroPiezas.renderPage(tablero, COD_NOPIEZA, mensajes);
         }
     }
 }
