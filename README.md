@@ -1,15 +1,16 @@
-# wasm-template
+# LeapFrog
 
-Plantilla de proyecto con Java + Webassembly  + TeaVM
+Juego simple con Java + Webassembly  + TeaVM inspirado y extraido del libro 'Over the Spectrum' de Melbourne House.
 
 ## Installation
 El proyecto usa Maven para generar un war para fácil despliegue.
 
 ## Usage
-Como su nombre indica. Para usar como plantilla.
+Simple juego de puzzle.
 
 ## Roadmap
-Sólo es una plantilla. Puede alcanzar cualquier objetivo..
+La idea era usar una sola función en js para que todo el trabajo recaiga en el wasm que ejecuta en main y devuelve
+el html.
 
 ## Integrate with your tools
 
