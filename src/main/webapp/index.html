@@ -19,7 +19,7 @@
     // 1. Iniciamos la API al cargar la página
     window.onload = async () => {
         await WasmAPI.init('wasm/leapfrog.wasm');
-        document.getElementById('display').innerHTML = WasmAPI.runFunction (OPS.REINICIAR , OPS.REINICIAR);
+        document.getElementById('display').innerHTML = WasmAPI.runFunction (OPS.REINICIAR);
         document.getElementById('display').onclick = function (event) {
             if (event.target.type === 'button') {
                 let id = event.target.id;
